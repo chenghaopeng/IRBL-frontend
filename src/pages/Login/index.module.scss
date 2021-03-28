@@ -1,0 +1,11 @@
+.whole {
+  width: 384px;
+  height: 322px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 48px;
+  box-shadow: 6px 6px 12px 0px transparentize($color: #000000, $amount: 0.98);
+}
