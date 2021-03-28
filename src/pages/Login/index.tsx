@@ -4,12 +4,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import MyInput from '../../components/MyInput'
 import MyButton from '../../components/MyButton/MyButton'
+import { routes } from '../../router'
+import { RouterProps, withRouter } from 'react-router-dom'
 
-function Login () {
+export interface LoginProps extends RouterProps {}
+
+function Login (props: LoginProps) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const handleLogin = () => {
     // TODO 登录
+    props.history.push(routes[1].path)
   }
   return (
     <div className={styles.whole}>
@@ -25,4 +30,4 @@ function Login () {
   )
 }
 
-export default Login
+export default withRouter(Login)

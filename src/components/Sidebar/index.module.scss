@@ -1,0 +1,71 @@
+.whole {
+  margin-right: 32px;
+  height: 100%;
+  width: 192px;
+  position: relative;
+  background-color: white;
+  box-shadow: 6px 0px 6px 0px transparentize($color: #000000, $amount: 0.98);
+  ~ div {
+    flex: 1;
+  }
+  &.hidden {
+    display: none;
+    ~ div {
+      flex: none;
+    }
+  }
+  .user {
+    padding: 48px 32px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    .avatar {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 3px 3px 6px 0px transparentize($color: #000000, $amount: 0.92);
+    }
+    .name {
+      margin-left: 16px;
+      font-size: 20px;
+    }
+  }
+  .entry {
+    margin-bottom: 8px;
+    height: 44px;
+    width: 192px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #E5F3FF;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    &.active {
+      width: 208px;
+      background: linear-gradient(45deg, #9DD3FF, #69BBFF);
+      border-radius: 0px 8px 8px 0px;
+      box-shadow: 0px 0px 6px 0px transparentize($color: #000000, $amount: 0.85);
+      .name {
+        right: 20px;
+        color: white;
+        font-weight: bold;
+      }
+    }
+    .name {
+      right: 96px;
+      position: absolute;
+      transition: 0.3s ease-in-out;
+    }
+  }
+  .exit {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    color: #BBBBBB;
+    cursor: pointer;
+  }
+}
