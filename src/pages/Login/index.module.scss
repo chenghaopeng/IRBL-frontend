@@ -1,6 +1,7 @@
 .whole {
   width: 384px;
   height: 322px;
+  position: relative;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -8,4 +9,22 @@
   background: #ffffff;
   border-radius: 48px;
   box-shadow: 6px 6px 12px 0px transparentize($color: #000000, $amount: 0.98);
+  .avatar {
+    width: 128px;
+    height: 128px;
+    position: absolute;
+    top: -64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 3px 3px 6px 0px transparentize($color: #000000, $amount: 0.92);
+  }
+  .input {
+    width: 150px;
+    > * {
+      margin: 32px 0px;
+    }
+  }
 }
