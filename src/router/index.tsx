@@ -25,7 +25,7 @@ export const routes = [
 function Router () {
   return (
     <Switch>
-      {routes.map(route => <Route exact path={route.path} component={route.component}></Route>)}
+      {routes.map(route => <Route exact path={route.path} component={route.component} key={route.name}></Route>)}
     </Switch>
   )
 }

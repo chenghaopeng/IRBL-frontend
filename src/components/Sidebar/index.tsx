@@ -30,7 +30,7 @@ function Sidebar (props: SidebarProps) {
         </div>
       </div>
       {routes.filter(({path}) => !ignorePath.includes(path)).map(({path, name}) => (
-        <div className={`${styles.entry} ${pathname === path ? styles.active : ''}`} onClick={handleRouteClick.bind(null, path)}>
+        <div key={name} className={`${styles.entry} ${pathname === path ? styles.active : ''}`} onClick={handleRouteClick.bind(null, path)}>
           <div className={styles.name}>{name}</div>
         </div>
       ))}
