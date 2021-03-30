@@ -1,0 +1,16 @@
+.whole {
+  margin: 32px;
+  display: grid;
+  grid-template-rows: 5fr 4fr;
+  gap: 32px;
+  .code {
+    display: grid;
+    grid-template-columns: 172px auto;
+    gap: 32px;
+    .control {
+      display: grid;
+      grid-template-rows: 28px auto 44px 44px;
+      gap: 8px;
+    }
+  }
+}
