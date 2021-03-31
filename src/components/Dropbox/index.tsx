@@ -7,7 +7,8 @@ import $$ from '../../utils/className'
 export type DropboxProps = {
   title?: string;
   extension?: string[];
-  icon?: number
+  icon?: number;
+  onFile?: (f: any) => void;
 }
 
 function Dropbox (props: DropboxProps) {
@@ -41,6 +42,7 @@ function Dropbox (props: DropboxProps) {
     } else {
       const file = files[0]
       if (props.extension?.length && props.extension.some(ext => file.name.endsWith(ext))) {
+        props.onFile && props.onFile(file)
         setFileName(file.name)
         setStage(1)
       } else {
@@ -50,6 +52,7 @@ function Dropbox (props: DropboxProps) {
   }
 
   const handleCancel = () => {
+    props.onFile && props.onFile(null)
     setFileName('')
     setStage(0)
   }
