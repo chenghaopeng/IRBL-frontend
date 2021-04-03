@@ -110,6 +110,10 @@ module.exports = function (proxy, allowedHost) {
       // This lets us open files from the runtime error overlay.
       app.use(errorOverlayMiddleware());
 
+      app.post ('*', (req, res) => {
+        res.redirect(req.originalUrl);
+      });
+
       if (fs.existsSync(paths.proxySetup)) {
         // This registers user provided middleware for proxy reasons
         require(paths.proxySetup)(app);

@@ -1,0 +1,47 @@
+.whole {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 2px 2px 2px 0px transparentize($color: black, $amount: 0.98);
+  .header {
+    padding: 24px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    .title {
+      flex: 1;
+      font-size: 18px;
+    }
+    .time {
+      margin-right: 8px;
+      color: #BBBBBB;
+    }
+  }
+  .info {
+    padding: 0 24px;
+    margin-bottom: 24px;
+    display: flex;
+    .left {
+      margin-right: 8px;
+      color: #BBBBBB;
+    }
+    .right {
+      flex: 1;
+      text-align: right;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  .control {
+    justify-content: flex-end;
+    div {
+      margin-left: 8px;
+      width: 112px;
+    }
+  }
+}
