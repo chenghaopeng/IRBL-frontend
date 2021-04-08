@@ -4,6 +4,7 @@ import styles from './index.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { routes } from '../../router'
+import store from '../../utils/store'
 
 export interface SidebarProps extends RouterProps {}
 
@@ -16,7 +17,7 @@ function Sidebar (props: SidebarProps) {
     props.history.push(path)
   }
   const handleExit = () => {
-    // TODO: 退出登录
+    store.remove('user')
     props.history.push(routes[0].path)
   }
   return (
