@@ -4,6 +4,8 @@ export type Response<T = any> = Promise<{
   success: boolean;
 }>
 
+const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/mock/381746' : 'http://116.85.66.200:8080'
+
 function request (url: string, data: any = {}, multiPart: boolean = false) {
   const headers = new Headers()
   headers.append('Content-Type', multiPart ? 'multipart/form-data' : 'application/json')
@@ -20,7 +22,7 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     headers.append('Content-Type', 'application/json')
     data = JSON.stringify(data)
   }
-  return fetch(url, {
+  return fetch(server + url, {
     method: 'POST',
     body: data,
     headers
