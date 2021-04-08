@@ -1,8 +1,8 @@
-export type ResponseBody = {
-  content: any;
+export type Response<T = any> = Promise<{
+  content: T;
   message: string;
   success: boolean;
-}
+}>
 
 function request (url: string, data: any = {}, multiPart: boolean = false) {
   const headers = new Headers()
@@ -24,7 +24,7 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     method: 'POST',
     body: data,
     headers
-  }).then(res => res.json() as Promise<ResponseBody>)
+  }).then(res => res.json() as Response)
 }
 
 export default request
