@@ -21,7 +21,7 @@ function Login (props: LoginProps) {
         alert(res.content.username + '，你好呀～！')
         props.history.push(routes[1].path)
       } else {
-        alert('登录失败！' + res.message)
+        alert('登录失败！' + res.content)
       }
     })
   }

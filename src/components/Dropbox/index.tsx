@@ -1,14 +1,15 @@
 import styles from './index.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload, faFileArchive, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import { DragEvent, useState } from 'react'
+import { DragEvent, useEffect, useState } from 'react'
 import $$ from '../../utils/className'
 
 export type DropboxProps = {
   title?: string;
   extension?: string[];
   icon?: number;
-  onFile?: (f: any) => void;
+  onChange?: (f: any) => void;
+  onHook?: (hook: () => void) => void;
 }
 
 function Dropbox (props: DropboxProps) {
@@ -42,7 +43,7 @@ function Dropbox (props: DropboxProps) {
     } else {
       const file = files[0]
       if (props.extension?.length && props.extension.some(ext => file.name.endsWith(ext))) {
-        props.onFile && props.onFile(file)
+        props.onChange && props.onChange(file)
         setFileName(file.name)
         setStage(1)
       } else {
@@ -52,10 +53,18 @@ function Dropbox (props: DropboxProps) {
   }
 
   const handleCancel = () => {
-    props.onFile && props.onFile(null)
+    props.onChange && props.onChange(null)
     setFileName('')
     setStage(0)
   }
+
+  useEffect(() => {
+    props.onHook && props.onHook(() => {
+      props.onChange && props.onChange(null)
+      setFileName('')
+      setStage(0)
+    })
+  }, [props])
 
   return (
     <div className={$$([styles.whole, (dragCount || stage) && styles.draging])} onDrop={handleDrop} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={prehandleDragEvent}>

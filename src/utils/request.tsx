@@ -1,6 +1,5 @@
 export type Response<T = any> = Promise<{
   content: T;
-  message: string;
   success: boolean;
 }>
 
