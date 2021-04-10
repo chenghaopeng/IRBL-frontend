@@ -17,8 +17,8 @@ function Sidebar (props: SidebarProps) {
     props.history.push(path)
   }
   const handleExit = () => {
-    store.remove('user')
     props.history.push(routes[0].path)
+    store.remove('user')
   }
   return (
     <div className={`${styles.whole} ${hidden ? styles.hidden : ''}`}>
