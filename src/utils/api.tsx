@@ -1,25 +1,13 @@
+import { Record, RecordListItem, Reposity, User } from "./entity"
 import request, { Response } from "./request"
 
 const Api = {
   user: {
-    login: (data: { username: string, password: string }) => request('/user/login', data) as Response<{
-      username: string;
-      role: 'Admin' | 'Developer';
-      queryNum: number;
-      token: string;
-    }>,
+    login: (data: { username: string, password: string }) => request('/user/login', data) as Response<User>,
     register: (data: { username: string, password: string }) => request('/user/register', data)
   },
   reposity: {
-    list: () => request('/manageRepo/show') as Response<Array<{
-      id: number;
-      gitUrl: string;
-      description: string;
-      state: 'Dev' | 'Abandon';
-      queryNum: number;
-      startTime: string;
-      endTime: string;
-    }>>,
+    list: () => request('/manageRepo/show') as Response<Array<Reposity>>,
     register: (data: { description: string, gitUrl: string }) => request('/manageRepo/register', data),
     update: (data: { description: string, id: number }) => request('/manageRepo/modify', data),
     delete: (data: { repoId: number }) => request('/manageRepo/delete', data)
@@ -29,22 +17,8 @@ const Api = {
     unregistered: (data: { bugReport: File, sourceCode: File }) => request('/queryDefects/uploadUnRegister', data, true) as Response<string>
   },
   record: {
-    list: () => request('/record/getUserAllRecord') as Response<Array<{
-      recordId: number;
-      queryTime: string;
-    }>>,
-    get: (data: { recordId: string }) => request('/record/queryRecord', data) as Response<{
-      id: number;
-      repoCommitId: string;
-      userId: number;
-      gitUrl: string;
-      fileScoreList: Array<{
-        score: number;
-        filepath: string;
-      }>;
-      queryTime: string;
-      state: 'initializing' | 'querying' | 'complete';
-    }>
+    list: () => request('/record/getUserAllRecord') as Response<Array<RecordListItem>>,
+    get: (data: { recordId: string }) => request('/record/queryRecord', data) as Response<Record>
   }
 }
 
