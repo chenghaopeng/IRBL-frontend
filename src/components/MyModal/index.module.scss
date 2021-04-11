@@ -1,0 +1,36 @@
+.whole {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparentize($color: #000000, $amount: 0.9);
+  backdrop-filter: blur(8px);
+  .content {
+    padding: 32px;
+    width: 384px;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: white;
+    border-radius: 32px;
+    box-shadow: 0px 0px 32px 0px transparentize($color: #000000, $amount: 0.9);
+    .wrapper {
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .control {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+      > div {
+        width: 120px;
+        margin-left: 16px;
+      }
+    }
+  }
+}
