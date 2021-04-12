@@ -7,7 +7,6 @@ const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/m
 
 function request (url: string, data: any = {}, multiPart: boolean = false) {
   const headers = new Headers()
-  headers.append('Content-Type', multiPart ? 'multipart/form-data' : 'application/json')
   if (multiPart) {
     headers.append('Content-Type', 'multipart/form-data')
     data = (() => {
