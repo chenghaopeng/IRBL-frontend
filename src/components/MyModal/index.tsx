@@ -5,8 +5,8 @@ import styles from './index.module.scss'
 
 export type MyModalProps = {
   children?: React.ReactNode;
-  onOk?: () => void;
-  onCancel?: () => void;
+  onOk?: () => void | boolean;
+  onCancel?: () => void | boolean;
 }
 
 export type MyModalRef = {
@@ -23,8 +23,10 @@ function MyModal (props: MyModalProps, ref: React.Ref<MyModalRef>) {
   const handleClick = (accept: boolean) => {
     const callback = accept ? props.onOk : props.onCancel
     return () => {
-      setOpen(false)
-      callback && callback()
+      const shouldClose = callback && callback()
+      if (shouldClose !== false) {
+        setOpen(false)
+      }
     }
   }
   return createPortal(open ? (
