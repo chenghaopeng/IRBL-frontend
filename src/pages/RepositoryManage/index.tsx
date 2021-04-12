@@ -1,11 +1,10 @@
 import styles from './index.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import ReposityList, { ReposityListRef } from '../../components/ReposityList'
 import { useRef, useState } from 'react'
 import MyModal, { MyModalRef } from '../../components/MyModal'
 import MyInput from '../../components/MyInput'
 import Api from '../../utils/api'
+import PageHeader from '../../components/PageHeader'
 
 function RepositoryManage () {
   const [newDescription, setNewDescription] = useState('')
@@ -36,14 +35,7 @@ function RepositoryManage () {
   }
   return (
     <div className={styles.whole}>
-      <div className={styles.header}>
-        <div className={styles.title}>
-          仓库管理
-        </div>
-        <div className={styles.add} onClick={showAdd}>
-          <FontAwesomeIcon icon={faPlus} color="#9DD3FF" size="2x" />
-        </div>
-      </div>
+      <PageHeader title="仓库管理" onAdd={showAdd} onRefresh={() => reposityList.current?.update()} />
       <ReposityList ref={reposityList} />
       <MyModal ref={addModal} onOk={handleAdd}>
         <MyInput value={newDescription} onChange={setNewDescription} placeholder="仓库描述" />

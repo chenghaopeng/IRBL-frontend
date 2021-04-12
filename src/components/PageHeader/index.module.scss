@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .controls {
+    --size: 48px;
+    display: flex;
+    justify-content: flex-end;
+    .control {
+      margin-left: 8px;
+      width: var(--size);
+      height: var(--size);
+      justify-self: flex-end;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 2px 2px 2px 0px transparentize($color: black, $amount: 0.98);
+      cursor: pointer;
+    }
+  }
+
+}

@@ -6,6 +6,7 @@
   box-shadow: 6px 0px 6px 0px transparentize($color: #000000, $amount: 0.98);
   ~ div {
     flex: 1;
+    margin: 32px;
   }
   &.hidden {
     display: none;
