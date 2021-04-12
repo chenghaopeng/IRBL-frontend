@@ -39,6 +39,11 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
     }
   }
   const handleEdit = () => {
+    const desc = description.trim()
+    if (!desc) {
+      alert('仓库描述不能为空！')
+      return false
+    }
     Api.reposity.update({ id, description }).then(({ success, content }) => {
       if (success) {
         alert('修改成功！')
