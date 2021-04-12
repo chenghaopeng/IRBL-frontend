@@ -1,0 +1,38 @@
+.whole {
+  display: flex;
+  flex-flow: column nowrap;
+  border-radius: 12px;
+  box-shadow: 2px 2px 2px 0px transparentize($color: black, $amount: 0.98);
+  border: 2px solid transparent;
+  &.active {
+    border-color: #9DD3FF;
+  }
+  .header {
+    padding: 24px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    background-color: white;
+    border-radius: inherit;
+    cursor: pointer;
+    .id {
+      margin-right: 8px;
+      &:after {
+        content: ':';
+      }
+    }
+    .time {
+      margin-right: 8px;
+      color: #BBBBBB;
+    }
+    .state {
+      margin-right: 8px;
+      flex: 1;
+      text-align: right;
+      color: #9DD3FF;
+    }
+  }
+  .content {
+    padding: 24px;
+  }
+}

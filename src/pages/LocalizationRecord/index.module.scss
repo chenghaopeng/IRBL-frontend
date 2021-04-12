@@ -1,2 +1,7 @@
 .whole {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-content: start;
+  overflow: auto;
 }

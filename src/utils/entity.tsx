@@ -16,7 +16,7 @@ export type Reposity = {
 }
 
 export type Record = {
-  id: number;
+  id: string;
   repoCommitId: string;
   userId: number;
   gitUrl: string;
@@ -29,6 +29,6 @@ export type Record = {
 }
 
 export type RecordListItem = {
-  recordId: number;
+  recordId: string;
   queryTime: string;
 }
