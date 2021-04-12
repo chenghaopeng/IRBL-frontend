@@ -1,3 +1,5 @@
+import store from "./store"
+
 export type Response<T = any> = Promise<{
   content: T;
   success: boolean;
@@ -7,6 +9,10 @@ const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/m
 
 function request (url: string, data: any = {}, multiPart: boolean = false) {
   const headers = new Headers()
+  const token = store.get('user')?.token
+  if (token) {
+    headers.append('irbl-token', token)
+  }
   if (multiPart) {
     headers.append('Content-Type', 'multipart/form-data')
     data = (() => {
@@ -24,7 +30,7 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     method: 'POST',
     body: data,
     headers
-  }).then(res => res.json() as Response)
+  }).then(res => res.json() as Response, () => ({ success: false, content: '网络错误，请重新登录或联系管理员！' }))
 }
 
 export default request
