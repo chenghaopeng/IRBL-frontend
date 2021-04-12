@@ -22,7 +22,7 @@ export type Record = {
   gitUrl: string;
   fileScoreList: Array<{
     score: number;
-    filepath: string;
+    filePath: string;
   }>;
   queryTime: string;
   state: 'initializing' | 'querying' | 'complete';
