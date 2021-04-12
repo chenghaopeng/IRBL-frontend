@@ -1,11 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useImperativeHandle, forwardRef } from 'react'
 import Api from '../../utils/api'
 import ReposityCard from '../../components/ReposityCard'
 import { Reposity } from '../../utils/entity'
 import MyModal, { MyModalRef } from '../MyModal'
 import MyInput from '../MyInput'
 
-function ReposityList () {
+export type ReposityListRef = {
+  update: () => void;
+}
+
+function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
   const [reposities, setReposities] = useState<Array<Reposity>>([])
   const [id, setId] = useState(0)
   const [description, setDescription] = useState('')
@@ -21,6 +25,9 @@ function ReposityList () {
     })
   }
   useEffect(() => getReposities(), [])
+  useImperativeHandle(ref, () => ({
+    update: getReposities
+  }))
   const show = (modal: React.RefObject<MyModalRef>) => {
     return (id: number) => {
       const reposity = reposities.find(value => value.id === id)
@@ -65,4 +72,4 @@ function ReposityList () {
   )
 }
 
-export default ReposityList
+export default forwardRef(ReposityList)
