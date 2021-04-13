@@ -1,6 +1,5 @@
 .whole {
-  width: 384px;
-  height: 322px;
+  padding: 64px 120px;
   position: relative;
   align-self: center;
   display: flex;
@@ -10,6 +9,9 @@
   background: #ffffff;
   border-radius: 48px;
   box-shadow: 6px 6px 12px 0px transparentize($color: #000000, $amount: 0.98);
+  & > div {
+    width: 100%;
+  }
   .avatar {
     width: 128px;
     height: 128px;
@@ -23,9 +25,13 @@
     box-shadow: 3px 3px 6px 0px transparentize($color: #000000, $amount: 0.92);
   }
   .input {
-    width: 150px;
     > * {
       margin: 32px 0px;
     }
+  }
+  .control {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 8px;
   }
 }
