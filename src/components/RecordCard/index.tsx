@@ -48,6 +48,18 @@ function RecordCard (props: RecordListItem) {
         </>}
       </div>
       {show && <div className={styles.content}>
+        {record?.fileScoreList.length && (
+          <div className={styles.item}>
+            <div className={styles.file}>文件路径</div>
+            <div className={styles.score}>相关度</div>
+          </div>
+        )}
+        {record?.fileScoreList.map(item => (
+          <div className={styles.item} key={item.filePath}>
+            <div className={styles.file}>{item.filePath}</div>
+            <div className={styles.score}>{item.score}</div>
+          </div>
+        ))}
         <div className={styles.origin}>
           代码来自 { record?.gitUrl } 的 { record?.repoCommitId } 提交 
         </div>

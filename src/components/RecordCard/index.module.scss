@@ -34,5 +34,18 @@
   }
   .content {
     padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    .item {
+      display: flex;
+      justify-content: space-between;
+      &:first-of-type {
+        font-weight: bold;
+      }
+    }
+    .origin {
+      color: grey;
+    }
   }
 }
