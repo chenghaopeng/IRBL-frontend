@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import Dropbox from '../../components/Dropbox'
+import React, { useRef, useState } from 'react'
+import Dropbox, { DropboxRef } from '../../components/Dropbox'
 import MyButton from '../../components/MyButton/MyButton'
 import MyInput from '../../components/MyInput'
 import Api from '../../utils/api'
@@ -9,7 +9,8 @@ function BugLocalization () {
   const [report, setReport] = useState(null)
   const [archive, setArchive] = useState(null)
   const [commitId, setCommitId] = useState('')
-  const [hooks, setHooks] = useState<Array<Function>>([])
+  const dropbox1 = useRef<DropboxRef>(null)
+  const dropbox2 = useRef<DropboxRef>(null)
   const handleGetReport = (f: any) => {
     setReport(f)
   }
@@ -43,18 +44,12 @@ function BugLocalization () {
   }
   const handleClear = () => {
     setCommitId('')
-    hooks.forEach(hook => hook())
-    console.log(hooks.length)
+    dropbox1.current?.clear()
+    dropbox2.current?.clear()
   }
-  const handleDropboxMount = (index: number) => (hook: () => void) => {
-    hooks[index] = hook
-  }
-  useEffect(() => {
-    setHooks([])
-  }, [])
   return (
     <div className={styles.whole}>
-      <Dropbox title="在这里上传你的缺陷报告" extension={['txt']} onChange={handleGetReport} onHook={handleDropboxMount(0)} />
+      <Dropbox ref={dropbox1} title="在这里上传你的缺陷报告" extension={['txt']} onChange={handleGetReport} />
       <div className={styles.code}>
         <div className={styles.control}>
           <MyInput placeholder="代码对应的 Commit ID" onChange={handleGetCommitId} value={commitId} />
@@ -62,7 +57,7 @@ function BugLocalization () {
           <MyButton primary title="检 测" onClick={handleSubmit} />
           <MyButton title="重 置" onClick={handleClear} />
         </div>
-        <Dropbox icon={1} title="或者在这里上传你的代码包" extension={['zip']} onChange={handleGetArchive} onHook={handleDropboxMount(1)} />
+        <Dropbox ref={dropbox2} icon={1} title="或者在这里上传你的代码包" extension={['zip']} onChange={handleGetArchive} />
       </div>
     </div>
   )
