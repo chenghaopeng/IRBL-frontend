@@ -1,6 +1,6 @@
 import { faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Api from '../../utils/api'
 import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
@@ -9,22 +9,31 @@ import styles from './index.module.scss'
 function RecordCard (props: RecordListItem) {
   const [show, setShow] = useState(false)
   const [record, setRecord] = useState<Record>()
+  const [timer, setTimer] = useState<any>(0)
   const getRecord = () => {
-    if (!show) {
-      return
-    }
     Api.record.get({ recordId: props.recordId }).then(({ success, content }) => {
       if (success) {
         setRecord(content)
+        if (content.state !== 'complete') {
+          setTimer(setTimeout(getRecord, 1000))
+        }
       } else {
         alert('获取记录失败！' + content)
       }
     })
   }
-  useEffect(getRecord, [props, show])
+  const handleToggle = () => {
+    if (show) {
+      setShow(false)
+      clearTimeout(timer)
+    } else {
+      setShow(true)
+      getRecord()
+    }
+  }
   return (
     <div className={$$([styles.whole, show && styles.active])}>
-      <div className={styles.header} onClick={() => setShow(!show)}>
+      <div className={styles.header} onClick={handleToggle}>
         <div className={styles.id}>{ props.recordId }</div>
         <div className={styles.time}>{ props.queryTime }</div>
         {show && <>
