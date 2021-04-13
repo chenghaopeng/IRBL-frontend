@@ -24,7 +24,8 @@ export const routes = [
   {
     name: '仓库管理',
     path: '/repository',
-    component: RepositoryManage
+    component: RepositoryManage,
+    admin: true
   }
 ]
 

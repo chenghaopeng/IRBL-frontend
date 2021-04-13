@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { routes } from '../../router'
 import store from '../../utils/store'
+import { User } from '../../utils/entity'
+import $$ from '../../utils/className'
 
 export interface SidebarProps extends RouterProps {}
 
@@ -30,8 +32,12 @@ function Sidebar (props: SidebarProps) {
           皮鼓打
         </div>
       </div>
-      {routes.filter(({path}) => !ignorePath.includes(path)).map(({path, name}) => (
-        <div key={name} className={`${styles.entry} ${pathname === path ? styles.active : ''}`} onClick={handleRouteClick.bind(null, path)}>
+      {routes.filter(({ path, admin }) => {
+        if (ignorePath.includes(path)) return false
+        if (admin && (store.get('user') as User)?.role !== 'Admin') return false
+        return true
+      }).map(({ path, name }) => (
+        <div key={name} className={$$([styles.entry, pathname === path && styles.active])} onClick={handleRouteClick.bind(null, path)}>
           <div className={styles.name}>{name}</div>
         </div>
       ))}
