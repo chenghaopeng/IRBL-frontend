@@ -3,6 +3,7 @@ import store from "./store"
 export type Response<T = any> = Promise<{
   content: T;
   success: boolean;
+  message: string;
 }>
 
 const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/mock/381746' : 'http://116.85.66.200:8080'
@@ -30,7 +31,7 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     method: 'POST',
     body: data,
     headers
-  }).then(res => res.json() as Response, () => ({ success: false, content: '网络错误，请重新登录或联系管理员！' }))
+  }).then(res => res.json() as Response, () => ({ success: false, content: {}, message: '网络错误，请重新登录或联系管理员！' }))
 }
 
 export default request

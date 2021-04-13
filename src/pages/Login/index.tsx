@@ -18,13 +18,13 @@ function Login (props: LoginProps) {
   const [repeat, setRepeat] = useState('')
   const handleLogin = () => {
     if (login) {
-      Api.user.login({ username, password }).then(res => {
-        if (res.success) {
-          store.set('user', res.content)
-          alert(res.content.username + '，你好呀～！')
+      Api.user.login({ username, password }).then(({success, content, message}) => {
+        if (success) {
+          store.set('user', content)
+          alert(content.username + '，你好呀～！')
           props.history.push(routes[1].path)
         } else {
-          alert('登录失败！' + res.content)
+          alert('登录失败！' + message)
         }
       })
     } else {
@@ -32,13 +32,13 @@ function Login (props: LoginProps) {
         alert('两次密码输入要一致！')
         return
       }
-      Api.user.register({ username, password }).then(res => {
-        if (res.success) {
+      Api.user.register({ username, password }).then(({success, content, message}) => {
+        if (success) {
           alert('注册成功！')
           setLogin(true)
           setRepeat('')
         } else {
-          alert('注册失败！' + res.content)
+          alert('注册失败！' + message)
         }
       })
     }

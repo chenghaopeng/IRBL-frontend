@@ -44,21 +44,21 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
       alert('仓库描述不能为空！')
       return false
     }
-    Api.reposity.update({ id, description }).then(({ success, content }) => {
+    Api.reposity.update({ id, description }).then(({ success, content, message }) => {
       if (success) {
         alert('修改成功！')
       } else {
-        alert('修改失败！' + content)
+        alert('修改失败！' + message)
       }
       getReposities()
     })
   }
   const handleDelete = () => {
-    Api.reposity.delete({ repoId: id }).then(({ success, content }) => {
+    Api.reposity.delete({ repoId: id }).then(({ success, content, message }) => {
       if (success) {
         alert('删除成功！')
       } else {
-        alert('删除失败！' + content)
+        alert('删除失败！' + message)
       }
       getReposities()
     })

@@ -34,11 +34,11 @@ function BugLocalization () {
       return
     }
     (commitId ? Api.locate.registered({ bugReport: report as any, commitId}) : Api.locate.unregistered({ bugReport: report as any, sourceCode: archive as any }))
-    .then(({ content, success }) => {
+    .then(({ content, success, message }) => {
       if (success) {
         alert('上传成功了！这次检测的 ID 为 ' + content)
       } else {
-        alert('出了什么问题呢？' + content)
+        alert('出了什么问题呢？' + message)
       }
     })
   }

@@ -23,12 +23,12 @@ function RepositoryManage () {
       return false
     }
     const [description, gitUrl] = params
-    Api.reposity.register({ description, gitUrl }).then(({ success, content }) => {
+    Api.reposity.register({ description, gitUrl }).then(({ success, content, message }) => {
       if (success) {
         alert('注册成功！')
         reposityList.current?.update()
       } else {
-        alert('注册失败！' + content)
+        alert('注册失败！' + message)
         return false
       }
     })

@@ -11,14 +11,14 @@ function RecordCard (props: RecordListItem) {
   const [record, setRecord] = useState<Record>()
   const [timer, setTimer] = useState<any>(0)
   const getRecord = () => {
-    Api.record.get({ recordId: props.recordId }).then(({ success, content }) => {
+    Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
         setRecord(content)
         if (content.state !== 'complete') {
           setTimer(setTimeout(getRecord, 1000))
         }
       } else {
-        alert('获取记录失败！' + content)
+        alert('获取记录失败！' + message)
       }
     })
   }

@@ -8,11 +8,11 @@ import styles from './index.module.scss'
 function LocalizationRecord () {
   const [records, setRecords] = useState<Array<RecordListItem>>([])
   const getRecords = () => {
-    Api.record.list().then(({ success, content }) => {
+    Api.record.list().then(({ success, content, message }) => {
       if (success) {
         setRecords(content)
       } else {
-        alert('获取记录列表失败！' + content)
+        alert('获取记录列表失败！' + message)
       }
     })
   }
