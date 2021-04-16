@@ -1,13 +1,31 @@
 .whole {
   position: fixed;
   width: 100%;
-  top: 0;
+  bottom: 64px;
   left: 0;
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  pointer-events: none;
   .message {
-    margin-top: 8px;
+    margin-top: 12px;
+    padding: 16px 32px;
+    background-color: transparentize($color: white, $amount: 0.5);
+    backdrop-filter: blur(8px);
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px 0px transparentize($color: #000000, $amount: 0.95);
+    pointer-events: all;
+    animation: rushin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), scaleout 0.2s ease-in-out var(--delay);
   }
+}
+
+@keyframes rushin {
+  0% { opacity: 0; transform: translateX(-100%); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleout {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
 }

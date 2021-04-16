@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 export type Message = {
   id: number;
   text: string;
+  duration: number;
 }
 
 export type MessageContainerRef = {
@@ -16,7 +17,7 @@ const MessageContainer = forwardRef((_: {}, ref: React.Ref<MessageContainerRef>)
   useImperativeHandle(ref, () => ({
     add: (text: string, duration: number) => {
       const id = Math.random()
-      setMessages(messages => [...messages, { id, text }])
+      setMessages(messages => [...messages, { id, text, duration }])
       setTimeout(() => {
         setMessages(messages => messages.filter(message => message.id !== id))
       }, duration)
@@ -25,7 +26,7 @@ const MessageContainer = forwardRef((_: {}, ref: React.Ref<MessageContainerRef>)
   return (
     <>
       {messages.map(message => (
-        <div key={message.id} className={styles.message}>{ message.text }</div>
+        <div key={message.id} className={styles.message} style={{ '--delay': (message.duration / 1000 - 0.2) + 's' } as React.CSSProperties}>{ message.text }</div>
       ))}
     </>
   )
