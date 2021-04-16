@@ -4,6 +4,7 @@ import ReposityCard from '../../components/ReposityCard'
 import { Reposity } from '../../utils/entity'
 import MyModal, { MyModalRef } from '../MyModal'
 import MyInput from '../MyInput'
+import __ from '../MyMessage'
 
 export type ReposityListRef = {
   update: () => void;
@@ -20,7 +21,7 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
       if (res.success) {
         setReposities(res.content)
       } else {
-        alert('咦？')
+        __('咦？')
       }
     })
   }
@@ -41,14 +42,14 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
   const handleEdit = () => {
     const desc = description.trim()
     if (!desc) {
-      alert('仓库描述不能为空！')
+      __('仓库描述不能为空！')
       return false
     }
     Api.reposity.update({ id, description }).then(({ success, content, message }) => {
       if (success) {
-        alert('修改成功！')
+        __('修改成功！')
       } else {
-        alert('修改失败！' + message)
+        __('修改失败！' + message)
       }
       getReposities()
     })
@@ -56,9 +57,9 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
   const handleDelete = () => {
     Api.reposity.delete({ repoId: id }).then(({ success, content, message }) => {
       if (success) {
-        alert('删除成功！')
+        __('删除成功！')
       } else {
-        alert('删除失败！' + message)
+        __('删除失败！' + message)
       }
       getReposities()
     })

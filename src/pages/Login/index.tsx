@@ -8,6 +8,7 @@ import { routes } from '../../router'
 import { RouterProps, withRouter } from 'react-router-dom'
 import Api from '../../utils/api'
 import store from '../../utils/store'
+import __ from '../../components/MyMessage'
 
 export interface LoginProps extends RouterProps {}
 
@@ -21,24 +22,24 @@ function Login (props: LoginProps) {
       Api.user.login({ username, password }).then(({success, content, message}) => {
         if (success) {
           store.set('user', content)
-          alert(content.username + '，你好呀～！')
+          __(content.username + '，你好呀～！')
           props.history.push(routes[1].path)
         } else {
-          alert('登录失败！' + message)
+          __('登录失败！' + message)
         }
       })
     } else {
       if (password !== repeat) {
-        alert('两次密码输入要一致！')
+        __('两次密码输入要一致！')
         return
       }
       Api.user.register({ username, password }).then(({success, content, message}) => {
         if (success) {
-          alert('注册成功！')
+          __('注册成功！')
           setLogin(true)
           setRepeat('')
         } else {
-          alert('注册失败！' + message)
+          __('注册失败！' + message)
         }
       })
     }

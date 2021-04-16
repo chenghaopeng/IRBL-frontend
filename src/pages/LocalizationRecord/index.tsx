@@ -4,6 +4,7 @@ import RecordCard from '../../components/RecordCard'
 import Api from '../../utils/api'
 import { RecordListItem } from '../../utils/entity'
 import styles from './index.module.scss'
+import __ from '../../components/MyMessage'
 
 function LocalizationRecord () {
   const [records, setRecords] = useState<Array<RecordListItem>>([])
@@ -12,7 +13,7 @@ function LocalizationRecord () {
       if (success) {
         setRecords(content)
       } else {
-        alert('获取记录列表失败！' + message)
+        __('获取记录列表失败！' + message)
       }
     })
   }

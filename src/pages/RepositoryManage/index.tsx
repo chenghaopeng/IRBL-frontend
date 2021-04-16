@@ -5,6 +5,7 @@ import MyModal, { MyModalRef } from '../../components/MyModal'
 import MyInput from '../../components/MyInput'
 import Api from '../../utils/api'
 import PageHeader from '../../components/PageHeader'
+import __ from '../../components/MyMessage'
 
 function RepositoryManage () {
   const [newDescription, setNewDescription] = useState('')
@@ -19,16 +20,16 @@ function RepositoryManage () {
   const handleAdd = () => {
     const params = [newDescription, newGitUrl].map(v => v.trim())
     if (params.some(v => !v)) {
-      alert('请输入仓库描述和地址！')
+      __('请输入仓库描述和地址！')
       return false
     }
     const [description, gitUrl] = params
     Api.reposity.register({ description, gitUrl }).then(({ success, content, message }) => {
       if (success) {
-        alert('注册成功！')
+        __('注册成功！')
         reposityList.current?.update()
       } else {
-        alert('注册失败！' + message)
+        __('注册失败！' + message)
         return false
       }
     })

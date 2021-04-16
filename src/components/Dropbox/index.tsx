@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileUpload, faFileArchive, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import React, { DragEvent, forwardRef, useImperativeHandle, useState } from 'react'
 import $$ from '../../utils/className'
+import __ from '../MyMessage'
 
 export type DropboxProps = {
   title?: string;
@@ -44,9 +45,9 @@ function Dropbox (props: DropboxProps, ref: React.Ref<DropboxRef>) {
     setDragCount(0)
     const { files } = e.dataTransfer
     if (files.length === 0) {
-      alert('宝贝，要传文件哦！')
+      __('宝贝，要传文件哦！')
     } else if (files.length > 1) {
-      alert('宝贝，只能传一个哦！')
+      __('宝贝，只能传一个哦！')
     } else {
       const file = files[0]
       if (props.extension?.length && props.extension.some(ext => file.name.endsWith(ext))) {
@@ -54,7 +55,7 @@ function Dropbox (props: DropboxProps, ref: React.Ref<DropboxRef>) {
         setFileName(file.name)
         setStage(1)
       } else {
-        alert('宝贝，有文件扩展名限制哦！')
+        __('宝贝，有文件扩展名限制哦！')
       }
     }
   }

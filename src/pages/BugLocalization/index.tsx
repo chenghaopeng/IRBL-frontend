@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import Dropbox, { DropboxRef } from '../../components/Dropbox'
 import MyButton from '../../components/MyButton/MyButton'
 import MyInput from '../../components/MyInput'
+import __ from '../../components/MyMessage'
 import Api from '../../utils/api'
 import styles from './index.module.scss'
 
@@ -22,23 +23,23 @@ function BugLocalization () {
   }
   const handleSubmit = () => {
     if (!report) {
-      alert('请选择缺陷报告哦！')
+      __('请选择缺陷报告哦！')
       return
     }
     if (!commitId && !archive) {
-      alert('请选输入 Commit ID 或选择代码包哦！')
+      __('请选输入 Commit ID 或选择代码包哦！')
       return
     }
     if (commitId && archive) {
-      alert('Commit ID 和代码压缩包选一个就行啦！')
+      __('Commit ID 和代码压缩包选一个就行啦！')
       return
     }
     (commitId ? Api.locate.registered({ bugReport: report as any, commitId}) : Api.locate.unregistered({ bugReport: report as any, sourceCode: archive as any }))
     .then(({ content, success, message }) => {
       if (success) {
-        alert('上传成功了！这次检测的 ID 为 ' + content)
+        __('上传成功了！这次检测的 ID 为 ' + content)
       } else {
-        alert('出了什么问题呢？' + message)
+        __('出了什么问题呢？' + message)
       }
     })
   }

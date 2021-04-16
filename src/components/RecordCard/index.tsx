@@ -5,6 +5,7 @@ import Api from '../../utils/api'
 import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
 import styles from './index.module.scss'
+import __ from '../MyMessage'
 
 function RecordCard (props: RecordListItem) {
   const [show, setShow] = useState(false)
@@ -18,7 +19,7 @@ function RecordCard (props: RecordListItem) {
           setTimer(setTimeout(getRecord, 1000))
         }
       } else {
-        alert('获取记录失败！' + message)
+        __('获取记录失败！' + message)
       }
     })
   }

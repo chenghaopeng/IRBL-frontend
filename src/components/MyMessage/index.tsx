@@ -49,8 +49,8 @@ let _message = (text: string, duration: number) => {
   _message(text, duration)
 }
 
-function message (text: string, duration = 3000) {
+function __ (text: string, duration = 3000) {
   _message(text, duration)
 }
 
-export default message
+export default __
