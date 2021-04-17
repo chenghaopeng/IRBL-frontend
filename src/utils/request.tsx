@@ -15,7 +15,6 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     headers.append('irbl-token', token)
   }
   if (multiPart) {
-    headers.append('Content-Type', 'multipart/form-data')
     data = (() => {
       const formData = new FormData()
       for (const key in data) {
