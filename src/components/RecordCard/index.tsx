@@ -1,4 +1,4 @@
-import { faCheck, faRedo, faCross } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import Api from '../../utils/api'
@@ -17,7 +17,7 @@ const DescOfState = {
 const IconOfState = {
   preprocessing: faRedo,
   querying: faRedo,
-  fail: faCross,
+  fail: faTimes,
   complete: faCheck
 }
 
@@ -70,18 +70,20 @@ function RecordCard (props: RecordListItem) {
         </>}
       </div>
       {show && record && <div className={styles.content}>
-        {record.fileScoreList.length && (
-          <div className={styles.item}>
-            <div className={styles.file}>文件路径</div>
-            <div className={styles.score}>相关度</div>
-          </div>
+        {record.fileScoreList && record.fileScoreList.length && (
+          <>
+            <div className={styles.item}>
+              <div className={styles.file}>文件路径</div>
+              <div className={styles.score}>相关度</div>
+            </div>
+            {record.fileScoreList.map(item => (
+              <div className={styles.item} key={item.filePath}>
+                <div className={styles.file}>{item.filePath}</div>
+                <div className={styles.score}>{item.score}</div>
+              </div>
+            ))}
+          </>
         )}
-        {record.fileScoreList.map(item => (
-          <div className={styles.item} key={item.filePath}>
-            <div className={styles.file}>{item.filePath}</div>
-            <div className={styles.score}>{item.score}</div>
-          </div>
-        ))}
         <div className={styles.origin}>
           {record.gitUrl ? `代码来自 ${record.gitUrl} 的 ${record?.repoCommitId} 提交` : '代码来自上传的压缩包'}
         </div>
