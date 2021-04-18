@@ -36,7 +36,7 @@ function RecordCard (props: RecordListItem) {
     Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
         setRecord(content)
-        if (content.queryRecordState !== 'complete') {
+        if (SpinOfState[content.queryRecordState]) {
           setTimer(setTimeout(getRecord, 1000))
         }
       } else {
