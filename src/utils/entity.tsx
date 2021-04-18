@@ -25,7 +25,7 @@ export type Record = {
     filePath: string;
   }>;
   queryTime: string;
-  state: 'initializing' | 'querying' | 'complete';
+  queryRecordState: 'preprocessing' | 'querying' | 'fail' | 'complete';
 }
 
 export type RecordListItem = {

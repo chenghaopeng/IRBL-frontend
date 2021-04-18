@@ -1,4 +1,4 @@
-import { faCheck, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faRedo, faCross } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import Api from '../../utils/api'
@@ -6,6 +6,27 @@ import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
 import styles from './index.module.scss'
 import __ from '../MyMessage'
+
+const DescOfState = {
+  preprocessing: '预处理',
+  querying: '定位中',
+  fail: '错误',
+  complete: '完成',
+}
+
+const IconOfState = {
+  preprocessing: faRedo,
+  querying: faRedo,
+  fail: faCross,
+  complete: faCheck
+}
+
+const SpinOfState = {
+  preprocessing: true,
+  querying: true,
+  fail: false,
+  complete: false
+}
 
 function RecordCard (props: RecordListItem) {
   const [show, setShow] = useState(false)
@@ -15,7 +36,7 @@ function RecordCard (props: RecordListItem) {
     Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
         setRecord(content)
-        if (content.state !== 'complete') {
+        if (content.queryRecordState !== 'complete') {
           setTimer(setTimeout(getRecord, 1000))
         }
       } else {
@@ -37,32 +58,32 @@ function RecordCard (props: RecordListItem) {
       <div className={styles.header} onClick={handleToggle}>
         <div className={styles.id}>{ props.recordId }</div>
         <div className={styles.time}>{ props.queryTime }</div>
-        {show && <>
+        {show && record && <>
           <div className={styles.state}>
-            { record?.state === 'complete' ? '已完成' : record?.state === 'querying' ? '检测中' : '初始化中' }
+            { DescOfState[record.queryRecordState] }
           </div>
           <FontAwesomeIcon
-            className={$$([(record?.state !== 'complete') && 'fa-spin'])}
-            icon={record?.state === 'complete' ? faCheck : faRedo}
+            className={$$([SpinOfState[record.queryRecordState] && 'fa-spin'])}
+            icon={IconOfState[record.queryRecordState]}
             color="#9DD3FF"
           />
         </>}
       </div>
-      {show && <div className={styles.content}>
-        {record?.fileScoreList.length && (
+      {show && record && <div className={styles.content}>
+        {record.fileScoreList.length && (
           <div className={styles.item}>
             <div className={styles.file}>文件路径</div>
             <div className={styles.score}>相关度</div>
           </div>
         )}
-        {record?.fileScoreList.map(item => (
+        {record.fileScoreList.map(item => (
           <div className={styles.item} key={item.filePath}>
             <div className={styles.file}>{item.filePath}</div>
             <div className={styles.score}>{item.score}</div>
           </div>
         ))}
         <div className={styles.origin}>
-          代码来自 { record?.gitUrl } 的 { record?.repoCommitId } 提交 
+          {record.gitUrl ? `代码来自 ${record.gitUrl} 的 ${record?.repoCommitId} 提交` : '代码来自上传的压缩包'}
         </div>
       </div>}
     </div>
