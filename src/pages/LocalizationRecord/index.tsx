@@ -11,7 +11,7 @@ function LocalizationRecord () {
   const getRecords = () => {
     Api.record.list().then(({ success, content, message }) => {
       if (success) {
-        setRecords(content)
+        setRecords(content.sort((a, b) => (new Date(b.queryTime).getTime() - new Date(a.queryTime).getTime())))
       } else {
         __('获取记录列表失败！' + message)
       }

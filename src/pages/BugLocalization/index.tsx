@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import { RouterProps } from 'react-router'
 import Dropbox, { DropboxRef } from '../../components/Dropbox'
 import MyButton from '../../components/MyButton/MyButton'
 import MyInput from '../../components/MyInput'
@@ -6,7 +7,7 @@ import __ from '../../components/MyMessage'
 import Api from '../../utils/api'
 import styles from './index.module.scss'
 
-function BugLocalization () {
+function BugLocalization (props: RouterProps) {
   const [report, setReport] = useState(null)
   const [archive, setArchive] = useState(null)
   const [commitId, setCommitId] = useState('')
@@ -38,6 +39,7 @@ function BugLocalization () {
     .then(({ content, success, message }) => {
       if (success) {
         __('上传成功了！这次检测的 ID 为 ' + content)
+        props.history.push('/record')
       } else {
         __('出了什么问题呢？' + message)
       }

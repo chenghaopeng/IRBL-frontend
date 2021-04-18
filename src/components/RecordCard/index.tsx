@@ -57,7 +57,7 @@ function RecordCard (props: RecordListItem) {
     <div className={$$([styles.whole, show && styles.active])}>
       <div className={styles.header} onClick={handleToggle}>
         <div className={styles.id}>{ props.recordId }</div>
-        <div className={styles.time}>{ props.queryTime }</div>
+        <div className={styles.time}>{ new Date(props.queryTime).toLocaleString() }</div>
         {show && record && <>
           <div className={styles.state}>
             { DescOfState[record.queryRecordState] }

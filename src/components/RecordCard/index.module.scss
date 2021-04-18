@@ -44,8 +44,9 @@
         font-weight: bold;
       }
       .file {
-        margin-right: 8px;
+        margin-right: 16px;
         flex: 1;
+        word-break: break-all;
       }
     }
     .origin {

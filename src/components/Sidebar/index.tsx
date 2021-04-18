@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RouterProps, withRouter } from 'react-router-dom'
 import styles from './index.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,6 +13,12 @@ export interface SidebarProps extends RouterProps {}
 const ignorePath = ['/']
 
 function Sidebar (props: SidebarProps) {
+  const [username, setUsername] = useState('皮鼓打')
+  useEffect(() => {
+    return store.subscribe(() => {
+      setUsername(store.get('user')?.username)
+    })
+  }, [])
   const { pathname } = props.history.location
   const hidden = ignorePath.includes(pathname)
   const handleRouteClick = (path: string) => {
@@ -29,7 +35,7 @@ function Sidebar (props: SidebarProps) {
           <FontAwesomeIcon icon={faUser} color="#69BBFF" size="2x" />
         </div>
         <div className={styles.name}>
-          皮鼓打
+          {username}
         </div>
       </div>
       {routes.filter(({ path, admin }) => {
