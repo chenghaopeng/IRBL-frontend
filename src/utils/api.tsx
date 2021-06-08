@@ -9,7 +9,7 @@ const Api = {
   reposity: {
     list: () => request('/manageRepo/show') as Response<Array<Reposity>>,
     register: (data: { description: string, gitUrl: string }) => request('/manageRepo/register', data),
-    update: (data: { description: string, id: number }) => request('/manageRepo/modify', data),
+    update: (data: { description: string, repoId: number }) => request('/manageRepo/modify', data),
     delete: (data: { repoId: number }) => request('/manageRepo/delete', data)
   },
   locate: {

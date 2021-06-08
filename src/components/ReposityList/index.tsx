@@ -45,7 +45,7 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
       __('仓库描述不能为空！')
       return false
     }
-    Api.reposity.update({ id, description }).then(({ success, content, message }) => {
+    Api.reposity.update({ repoId: id, description }).then(({ success, content, message }) => {
       if (success) {
         __('修改成功！')
       } else {
