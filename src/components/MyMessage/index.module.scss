@@ -17,13 +17,13 @@
     border-radius: 8px;
     box-shadow: 4px 4px 4px 0px transparentize($color: #000000, $amount: 0.95);
     pointer-events: all;
-    animation: rushin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), scaleout 0.2s ease-in-out var(--delay);
+    animation: scalein 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), scaleout 0.2s ease-in-out var(--delay);
   }
 }
 
-@keyframes rushin {
-  0% { opacity: 0; transform: translateX(-100%); }
-  100% { opacity: 1; transform: translateX(0); }
+@keyframes scalein {
+  0% { opacity: 0; transform: scale(0); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
 @keyframes scaleout {

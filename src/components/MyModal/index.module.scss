@@ -7,8 +7,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparentize($color: #000000, $amount: 0.9);
-  backdrop-filter: blur(8px);
+  animation: blurin 0.5s ease-in-out forwards;
+  @keyframes blurin {
+    0% { backdrop-filter: blur(0px) brightness(100%); }
+    100% { backdrop-filter: blur(8px) brightness(90%); }
+  }
   .content {
     padding: 32px;
     width: 384px;
@@ -17,6 +20,11 @@
     background-color: white;
     border-radius: 32px;
     box-shadow: 0px 0px 32px 0px transparentize($color: #000000, $amount: 0.9);
+    animation: slidein 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    @keyframes slidein {
+      0% { opacity: 0; transform: translateY(-100%) scale(0); }
+      100% { opacity: 1; transform: translateY(0%) scale(1); }
+    }
     .wrapper {
       min-height: 64px;
       display: grid;

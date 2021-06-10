@@ -8,6 +8,7 @@ import MyButton from '../MyButton/MyButton'
 export type ReposityCardProps = {
   onEdit?: (id: number) => void;
   onDelete?: (id: number) => void;
+  onOpenWorkspace?: (id: number) => void;
 }
 
 function ReposityCard (props: Reposity & ReposityCardProps) {
@@ -38,6 +39,7 @@ function ReposityCard (props: Reposity & ReposityCardProps) {
         <div className={`${styles.control} ${styles.info}`}>
           <MyButton danger title="删 除" onClick={() => props.onDelete && props.onDelete(props.id)} />
           <MyButton primary title="编 辑" onClick={() => props.onEdit && props.onEdit(props.id)} />
+          <MyButton primary title="工作区" onClick={() => props.onOpenWorkspace && props.onOpenWorkspace(props.id)} />
         </div>
       </>}
     </div>

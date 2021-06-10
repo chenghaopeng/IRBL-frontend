@@ -6,6 +6,8 @@ import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
 import styles from './index.module.scss'
 import __ from '../MyMessage'
+import MyButton from '../MyButton/MyButton'
+import { getGitReposityName, openWorkspace } from '../../utils/workspace'
 
 const DescOfState = {
   preprocessing: '预处理',
@@ -85,7 +87,8 @@ function RecordCard (props: RecordListItem) {
           </>
         )}
         <div className={styles.origin}>
-          {record.gitUrl ? `代码来自 ${record.gitUrl} 的 ${record?.repoCommitId} 提交` : '代码来自上传的压缩包'}
+          <div>{record.gitUrl ? `代码来自 ${getGitReposityName(record.gitUrl)} 的 ${record?.repoCommitId} 提交` : '代码来自上传的压缩包'}</div>
+          {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
         </div>
       </div>}
     </div>

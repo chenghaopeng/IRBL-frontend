@@ -50,7 +50,13 @@
       }
     }
     .origin {
+      display: flex;
+      align-items: center;
       color: grey;
+      > div:first-child {
+        flex: none;
+        margin-right: 16px;
+      }
     }
   }
 }

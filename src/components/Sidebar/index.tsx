@@ -13,7 +13,7 @@ export interface SidebarProps extends RouterProps {}
 const ignorePath = ['/']
 
 function Sidebar (props: SidebarProps) {
-  const [username, setUsername] = useState('皮鼓打')
+  const [username, setUsername] = useState('')
   useEffect(() => {
     return store.subscribe(() => {
       setUsername(store.get('user')?.username)
