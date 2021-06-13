@@ -58,7 +58,7 @@ function RecordCard (props: RecordListItem) {
   return (
     <div className={$$([styles.whole, show && styles.active])}>
       <div className={styles.header} onClick={handleToggle}>
-        <div className={styles.id}>{ props.name } ({ props.recordId })</div>
+        <div className={styles.id}>{ props.name || props.recordId}</div>
         <div className={styles.time}>{ new Date(props.queryTime).toLocaleString() }</div>
         {show && record && <>
           <div className={styles.state}>
@@ -87,7 +87,7 @@ function RecordCard (props: RecordListItem) {
           </>
         )}
         <div className={styles.origin}>
-          <div>{record.gitUrl ? `代码来自 ${getGitReposityName(record.gitUrl)} 的 ${record?.repoCommitId} 提交` : '代码来自上传的压缩包'}</div>
+          <div>{record.gitUrl ? `代码来自 ${getGitReposityName(record.gitUrl)} 的 ${record?.repoCommitId.substring(0, 8)} 提交` : '代码来自上传的压缩包'}</div>
           {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
         </div>
       </div>}
