@@ -58,7 +58,7 @@ function RecordCard (props: RecordListItem) {
   return (
     <div className={$$([styles.whole, show && styles.active])}>
       <div className={styles.header} onClick={handleToggle}>
-        <div className={styles.id}>{ props.recordId }</div>
+        <div className={styles.id}>{ props.name } ({ props.recordId })</div>
         <div className={styles.time}>{ new Date(props.queryTime).toLocaleString() }</div>
         {show && record && <>
           <div className={styles.state}>

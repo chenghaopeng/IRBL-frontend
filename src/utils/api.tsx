@@ -1,4 +1,4 @@
-import { Record, RecordListItem, Reposity, User } from "./entity"
+import { Commit, Record, RecordListItem, Reposity, User } from "./entity"
 import request, { Response } from "./request"
 
 const Api = {
@@ -19,6 +19,10 @@ const Api = {
   record: {
     list: () => request('/record/getUserAllRecord') as Response<Array<RecordListItem>>,
     get: (data: { recordId: string }) => request('/record/queryRecord', data) as Response<Record>
+  },
+  repository: {
+    list: () => request('/repository/list') as Response<Array<Reposity>>,
+    commitList: (id: number) => request(`/repository/${id}/commit/list`) as Response<Array<Commit>>
   }
 }
 

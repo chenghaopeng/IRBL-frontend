@@ -7,6 +7,7 @@ export type MyModalProps = {
   children?: React.ReactNode;
   onOk?: () => void | boolean;
   onCancel?: () => void | boolean;
+  onClose?: () => void;
 }
 
 export type MyModalRef = {
@@ -16,16 +17,20 @@ export type MyModalRef = {
 
 function MyModal (props: MyModalProps, ref: React.Ref<MyModalRef>) {
   const [open, setOpen] = useState(false)
+  const close = () => {
+    setOpen(false)
+    props.onClose && props.onClose()
+  }
   useImperativeHandle(ref, () => ({
     open: () => setOpen(true),
-    close: () => setOpen(false)
+    close
   }))
   const handleClick = (accept: boolean) => {
     const callback = accept ? props.onOk : props.onCancel
     return () => {
       const shouldClose = callback && callback()
       if (shouldClose !== false) {
-        setOpen(false)
+        close()
       }
     }
   }

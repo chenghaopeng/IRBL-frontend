@@ -8,8 +8,17 @@
     gap: 32px;
     .control {
       display: grid;
-      grid-template-rows: 28px auto 44px 44px;
+      grid-template-rows: 28px 44px auto 44px 44px;
       gap: 8px;
     }
+  }
+}
+
+.commit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  > div {
+    height: 400px;
   }
 }

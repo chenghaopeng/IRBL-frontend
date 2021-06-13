@@ -31,4 +31,11 @@ export type Record = {
 export type RecordListItem = {
   recordId: string;
   queryTime: string;
+  name: string;
+}
+
+export type Commit = {
+  commitId: string;
+  message: string;
+  time: string;
 }
