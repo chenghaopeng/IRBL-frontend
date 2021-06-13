@@ -74,7 +74,7 @@ function BugLocalization (props: RouterProps) {
     Api.repository.commitList(id as number).then(res => {
       if (res.success) {
         setCommits(res.content.map(commit => ({
-          title: `${commit.commitId} (${commit.time}): ${commit.message}`,
+          title: `${commit.commitId.substring(0, 8)} (${commit.time}): ${commit.message}`,
           value: commit.commitId
         })))
       } else {
@@ -112,7 +112,7 @@ function BugLocalization (props: RouterProps) {
         </div>
         <Dropbox ref={dropbox2} icon={1} title="或者在这里上传你的代码包" extension={['zip']} onChange={handleGetArchive} />
       </div>
-      <MyModal ref={selectCommitIdRef} onOk={handleSelectCommitOk} onClose={handleSelectCommitClose}>
+      <MyModal ref={selectCommitIdRef} onOk={handleSelectCommitOk} onClose={handleSelectCommitClose} width={600}>
         <div className={styles.commit}>
           <span>选择仓库</span>
           <span>选择提交</span>

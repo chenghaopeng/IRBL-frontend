@@ -4,6 +4,7 @@ import MyButton from '../MyButton/MyButton'
 import styles from './index.module.scss'
 
 export type MyModalProps = {
+  width?: number;
   children?: React.ReactNode;
   onOk?: () => void | boolean;
   onCancel?: () => void | boolean;
@@ -34,9 +35,10 @@ function MyModal (props: MyModalProps, ref: React.Ref<MyModalRef>) {
       }
     }
   }
+  const width = props.width || 384
   return createPortal(open ? (
     <div className={styles.whole}>
-      <div className={styles.content}>
+      <div className={styles.content} style={{ width: width + 'px' }}>
         <div className={styles.wrapper}>
           { props.children }
         </div>
