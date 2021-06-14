@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { faPlus, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './index.module.scss'
+import { easeOutBounce } from '../../utils/animation'
 
 export type PageHeaderProps = {
   hasAdd?: boolean;
@@ -12,6 +13,27 @@ export type PageHeaderProps = {
 }
 
 function PageHeader (props: PageHeaderProps) {
+  const [degree, setDegree] = useState(0)
+  const [rotating, setRotating] = useState(false)
+  const handleRefresh = () => {
+    props.onRefresh && props.onRefresh()
+    if (rotating) {
+      return
+    }
+    setRotating(true)
+    let x = 0
+    const animate = () => {
+      if (x === 100) {
+        setRotating(false)
+        setDegree(0)
+        return
+      }
+      x += 1
+      setDegree(easeOutBounce(x / 100) * 360)
+      window.requestAnimationFrame(animate)
+    }
+    window.requestAnimationFrame(animate)
+  }
   return (
     <div className={styles.header}>
       <div className={styles.title}>
@@ -21,8 +43,8 @@ function PageHeader (props: PageHeaderProps) {
         {props.onAdd && <div className={styles.control} onClick={props.onAdd}>
           <FontAwesomeIcon icon={faPlus} color="#9DD3FF" size="2x" />
         </div>}
-        {props.onRefresh && <div className={styles.control} onClick={props.onRefresh}>
-          <FontAwesomeIcon icon={faRedo} color="#9DD3FF" size="2x" />
+        {props.onRefresh && <div className={styles.control} onClick={handleRefresh}>
+          <FontAwesomeIcon icon={faRedo} color="#9DD3FF" size="2x" style={{ transform: `rotate(${degree}deg)` }} />
         </div>}
       </div>
     </div>
