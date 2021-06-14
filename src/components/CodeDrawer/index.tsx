@@ -1,7 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { faTimes } from '../../../node_modules.nosync/@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '../../../node_modules.nosync/@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CodeBox from '../CodeBox'
 import styles from './index.module.scss'
 
