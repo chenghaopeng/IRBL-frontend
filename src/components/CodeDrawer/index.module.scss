@@ -1,0 +1,42 @@
+.whole {
+  --margin: 48px;
+  position: fixed;
+  padding: calc(var(--margin) / 5 * 2);
+  width: 75vw;
+  min-width: 800px;
+  max-width: 1000px;
+  height: calc(100vh - var(--margin) * 2);
+  top: var(--margin);
+  right: var(--margin);
+  box-sizing: border-box;
+  z-index: 2;
+  background-color: white;
+  border-radius: var(--margin);
+  box-shadow: 0px 0px 32px 0px transparentize($color: black, $amount: 0.8);
+  animation: slidein 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  @keyframes slidein {
+    0% { transform: translateX(calc(100% + var(--margin))); }
+    100% { transform: translateX(0%); }
+  }
+  .close {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+}
+
+.mask {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  animation: blurin 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  @keyframes blurin {
+    0% { background-color: transparentize($color: black, $amount: 1); backdrop-filter: blur(0px); }
+    100% { background-color: transparentize($color: black, $amount: 0.3); backdrop-filter: blur(8px); }
+  }
+}

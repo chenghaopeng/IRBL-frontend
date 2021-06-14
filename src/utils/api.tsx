@@ -22,7 +22,8 @@ const Api = {
   },
   repository: {
     list: () => request('/repository/list') as Response<Array<Reposity>>,
-    commitList: (id: number) => request(`/repository/${id}/commit/list`) as Response<Array<Commit>>
+    commitList: (id: number) => request(`/repository/${id}/commit/list`) as Response<Array<Commit>>,
+    file: (commitId: string, path: string) => request(`/repository/commit/${commitId}/file`, { path }) as Response<string>
   }
 }
 

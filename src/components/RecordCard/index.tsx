@@ -1,6 +1,6 @@
 import { faCheck, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useState, MouseEvent, useRef } from 'react'
 import Api from '../../utils/api'
 import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import __ from '../MyMessage'
 import MyButton from '../MyButton/MyButton'
 import { getGitReposityName, openWorkspace } from '../../utils/workspace'
+import CodeDrawer, { CodeDrawerRef } from '../CodeDrawer'
 
 const DescOfState = {
   preprocessing: '预处理',
@@ -34,6 +35,7 @@ function RecordCard (props: RecordListItem) {
   const [show, setShow] = useState(false)
   const [record, setRecord] = useState<Record>()
   const [timer, setTimer] = useState<any>(0)
+  const CodeDrawerRef = useRef<CodeDrawerRef>(null)
   const getRecord = () => {
     Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
@@ -55,6 +57,14 @@ function RecordCard (props: RecordListItem) {
       getRecord()
     }
   }
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    const { path } = (e.target as HTMLDivElement).dataset
+    if (path && record?.repoCommitId) {
+      Api.repository.file(record.repoCommitId, path).then(res => {
+        CodeDrawerRef.current?.open(`/*\n  ${path}\n*/\n\n${res.content}`)
+      })
+    }
+  }
   return (
     <div className={$$([styles.whole, show && styles.active])}>
       <div className={styles.header} onClick={handleToggle}>
@@ -71,16 +81,16 @@ function RecordCard (props: RecordListItem) {
           />
         </>}
       </div>
-      {show && record && <div className={styles.content}>
+      {show && record && <div className={styles.content} onClick={handleClick}>
         {record.fileScoreList && record.fileScoreList.length && (
           <>
-            <div className={styles.item}>
-              <div className={styles.file}>文件路径</div>
-              <div className={styles.score}>相关度</div>
+            <div className={styles.title}>
+              <div>文件路径</div>
+              <div>相关度</div>
             </div>
             {record.fileScoreList.map(item => (
               <div className={styles.item} key={item.filePath}>
-                <div className={styles.file}>{item.filePath}</div>
+                <div className={styles.file} data-path={item.filePath}>{item.filePath}</div>
                 <div className={styles.score}>{item.score}</div>
               </div>
             ))}
@@ -91,6 +101,7 @@ function RecordCard (props: RecordListItem) {
           {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
         </div>
       </div>}
+      <CodeDrawer ref={CodeDrawerRef} />
     </div>
   )
 }

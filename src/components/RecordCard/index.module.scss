@@ -37,16 +37,22 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
+    .title {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+    }
     .item {
       display: flex;
       align-items: center;
-      &:first-of-type {
-        font-weight: bold;
-      }
       .file {
         margin-right: 16px;
         flex: 1;
         word-break: break-all;
+        cursor: pointer;
+        &:hover {
+          color: #9DD3FF;
+        }
       }
     }
     .origin {
