@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import styles from './index.module.scss'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
 import MyInput from '../../components/MyInput'
 import MyButton from '../../components/MyButton/MyButton'
 import { routes } from '../../router'
@@ -50,7 +48,7 @@ function Login (props: LoginProps) {
   return (
     <div className={styles.whole}>
       <div className={styles.avatar}>
-        <FontAwesomeIcon icon={faUser} color="#69BBFF" size="5x" />
+        <img src="logo.png" alt="logo" />
       </div>
       <div className={styles.input}>
         <MyInput placeholder="账号" value={username} onChange={setUsername} />

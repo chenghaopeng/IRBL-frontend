@@ -20,9 +20,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 3px 3px 6px 0px transparentize($color: #000000, $amount: 0.92);
+    img {
+      width: 100%;
+    }
   }
   .input {
     > * {
