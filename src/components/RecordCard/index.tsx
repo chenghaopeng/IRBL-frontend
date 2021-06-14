@@ -60,7 +60,8 @@ function RecordCard (props: RecordListItem) {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const { path } = (e.target as HTMLDivElement).dataset
     if (path && record?.repoCommitId) {
-      Api.repository.file(record.repoCommitId, path).then(res => {
+      const truePath = '/' + path.split('/').slice(2).join('/')
+      Api.repository.file(record.repoCommitId, truePath).then(res => {
         CodeDrawerRef.current?.open(`/*\n  ${path}\n*/\n\n${res.content}`)
       })
     }
