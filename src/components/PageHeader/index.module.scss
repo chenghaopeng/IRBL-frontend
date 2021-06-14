@@ -23,6 +23,17 @@
       border-radius: 12px;
       box-shadow: 2px 2px 2px 0px transparentize($color: black, $amount: 0.98);
       cursor: pointer;
+      &.scale {
+        > svg {
+          transition: 0.2s ease-in-out;
+        }
+        &:hover > svg {
+          transform: scale(1.2);
+        }
+        &:active > svg {
+          transform: scale(1);
+        }
+      }
     }
   }
 

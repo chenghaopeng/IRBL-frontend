@@ -3,6 +3,7 @@ import { faPlus, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './index.module.scss'
 import { easeOutBounce } from '../../utils/animation'
+import $$ from '../../utils/className'
 
 export type PageHeaderProps = {
   hasAdd?: boolean;
@@ -40,7 +41,7 @@ function PageHeader (props: PageHeaderProps) {
         { props.title }
       </div>
       <div className={styles.controls}>
-        {props.onAdd && <div className={styles.control} onClick={props.onAdd}>
+        {props.onAdd && <div className={$$([styles.control, styles.scale])} onClick={props.onAdd}>
           <FontAwesomeIcon icon={faPlus} color="#9DD3FF" size="2x" />
         </div>}
         {props.onRefresh && <div className={styles.control} onClick={handleRefresh}>
