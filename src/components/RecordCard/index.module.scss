@@ -36,22 +36,25 @@
     padding: 24px;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
-    .title {
-      display: flex;
-      justify-content: space-between;
-      font-weight: bold;
-    }
+    gap: 8px;
     .item {
-      display: flex;
-      align-items: center;
-      .file {
-        margin-right: 16px;
-        flex: 1;
-        word-break: break-all;
-        cursor: pointer;
-        &:hover {
-          color: #9DD3FF;
+      padding: 4px 8px;
+      position: relative;
+      word-break: break-all;
+      cursor: pointer;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        z-index: -1;
+        background-color: #69BBFF;
+        border-radius: 8px;
+        animation: scalein 0.5s ease-out var(--delay) both;
+        @keyframes scalein {
+          0% { width: 0; opacity: 0; }
+          100% { width: var(--size); opacity: var(--opacity); }
         }
       }
     }

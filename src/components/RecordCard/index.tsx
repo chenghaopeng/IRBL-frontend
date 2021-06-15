@@ -1,6 +1,6 @@
 import { faCheck, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, MouseEvent } from 'react'
+import { useState, MouseEvent, CSSProperties } from 'react'
 import Api from '../../utils/api'
 import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
@@ -85,20 +85,22 @@ function RecordCard (props: RecordCardProps) {
         </>}
       </div>
       {show && record && <div className={styles.content} onClick={handleClick}>
-        {record.fileScoreList && record.fileScoreList.length && (
-          <>
-            <div className={styles.title}>
-              <div>文件路径</div>
-              <div>相关度</div>
+        {record.fileScoreList && record.fileScoreList.length && 
+          record.fileScoreList.map((item, index) => (
+            <div
+              className={styles.item}
+              key={item.filePath}
+              data-path={item.filePath}
+              style={{
+                '--size': item.score * 100 + '%',
+                '--opacity': 0.2 + item.score * 0.8,
+                '--delay': index * 0.05 + 's'
+              } as CSSProperties }
+            >
+              {item.filePath}
             </div>
-            {record.fileScoreList.map(item => (
-              <div className={styles.item} key={item.filePath}>
-                <div className={styles.file} data-path={item.filePath}>{item.filePath}</div>
-                <div className={styles.score}>{item.score}</div>
-              </div>
-            ))}
-          </>
-        )}
+          ))
+        }
         <div className={styles.origin}>
           <div>{record.gitUrl ? `代码来自 ${getGitReposityName(record.gitUrl)} 的 ${record?.repoCommitId.substring(0, 8)} 提交` : '代码来自上传的压缩包'}</div>
           {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
