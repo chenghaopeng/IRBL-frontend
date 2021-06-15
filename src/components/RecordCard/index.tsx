@@ -59,12 +59,18 @@ function RecordCard (props: RecordListItem) {
   }
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const { path } = (e.target as HTMLDivElement).dataset
-    if (path && record?.repoCommitId) {
-      const truePath = '/' + path.split('/').slice(2).join('/')
-      Api.repository.file(record.repoCommitId, truePath).then(res => {
-        CodeDrawerRef.current?.open(`/*\n  ${path}\n*/\n\n${res.content}`)
-      })
+    if (!path || !record) {
+      return
     }
+    const truePath = '/' + path.split('/').slice(2).join('/')
+    const [func, id] = record.repoCommitId ? [Api.repository.file, record.repoCommitId] : [Api.record.file, record.id]
+    func(id, truePath).then(res => {
+      if (res.success) {
+        CodeDrawerRef.current?.open(`/*\n  ${path}\n*/\n\n${res.content}`)
+      } else {
+        __(res.message)
+      }
+    })
   }
   return (
     <div className={$$([styles.whole, show && styles.active])}>
