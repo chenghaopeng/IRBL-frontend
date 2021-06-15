@@ -61,11 +61,16 @@ function RecordCard (props: RecordCardProps) {
   }
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const { path } = (e.target as HTMLDivElement).dataset
-    if (path && record?.repoCommitId) {
+    if (!path) {
+      return
+    }
+    if (record?.repoCommitId) {
       const truePath = '/' + path.split('/').slice(2).join('/')
       Api.repository.file(record.repoCommitId, truePath).then(res => {
         props.hook && props.hook(`/*\n  ${path}\n*/\n\n${res.content}`)
       })
+    } else {
+      __('只允许查看已注册仓库的代码！')
     }
   }
   return (

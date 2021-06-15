@@ -42,6 +42,13 @@
       position: relative;
       word-break: break-all;
       cursor: pointer;
+      border-radius: 8px;
+      &:hover {
+        background-color: transparentize(#69BBFF, 0.8);
+      }
+      &:active {
+        background-color: transparentize(#69BBFF, 0.4);
+      }
       &::before {
         content: '';
         position: absolute;
