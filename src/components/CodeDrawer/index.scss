@@ -1,0 +1,39 @@
+.CodeDrawer-whole-enter {
+  transform: translateX(calc(110% + var(--margin)));
+}
+
+.CodeDrawer-whole-enter-active, .CodeDrawer-whole-enter-done {
+  transform: translateX(0%);
+  transition: 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
+
+.CodeDrawer-whole-exit {
+  transform: translateX(0%);
+}
+
+.CodeDrawer-whole-exit-active {
+  transform: translateX(calc(110% + var(--margin)));
+  transition: 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.CodeDrawer-mask-enter {
+  background-color: transparentize($color: black, $amount: 1);
+  backdrop-filter: blur(0px);
+}
+
+.CodeDrawer-mask-enter-active, .CodeDrawer-mask-enter-done {
+  background-color: transparentize($color: black, $amount: 0.3);
+  backdrop-filter: blur(8px);
+  transition: 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.CodeDrawer-mask-exit {
+  background-color: transparentize($color: black, $amount: 0.3);
+  backdrop-filter: blur(8px);
+}
+
+.CodeDrawer-mask-exit-active {
+  background-color: transparentize($color: black, $amount: 1);
+  backdrop-filter: blur(0px);
+  transition: 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.3s;
+}
