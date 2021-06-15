@@ -1,6 +1,6 @@
 import { faCheck, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, MouseEvent, useRef } from 'react'
+import { useState, MouseEvent } from 'react'
 import Api from '../../utils/api'
 import $$ from '../../utils/className'
 import { Record, RecordListItem } from '../../utils/entity'
@@ -8,7 +8,6 @@ import styles from './index.module.scss'
 import __ from '../MyMessage'
 import MyButton from '../MyButton/MyButton'
 import { getGitReposityName, openWorkspace } from '../../utils/workspace'
-import CodeDrawer, { CodeDrawerRef } from '../CodeDrawer'
 
 const DescOfState = {
   preprocessing: '预处理',
@@ -31,11 +30,14 @@ const SpinOfState = {
   complete: false
 }
 
-function RecordCard (props: RecordListItem) {
+export type RecordCardProps = {
+  hook?: (code: string) => void;
+} & RecordListItem
+
+function RecordCard (props: RecordCardProps) {
   const [show, setShow] = useState(false)
   const [record, setRecord] = useState<Record>()
   const [timer, setTimer] = useState<any>(0)
-  const CodeDrawerRef = useRef<CodeDrawerRef>(null)
   const getRecord = () => {
     Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
@@ -62,7 +64,7 @@ function RecordCard (props: RecordListItem) {
     if (path && record?.repoCommitId) {
       const truePath = '/' + path.split('/').slice(2).join('/')
       Api.repository.file(record.repoCommitId, truePath).then(res => {
-        CodeDrawerRef.current?.open(`/*\n  ${path}\n*/\n\n${res.content}`)
+        props.hook && props.hook(`/*\n  ${path}\n*/\n\n${res.content}`)
       })
     }
   }
@@ -102,7 +104,6 @@ function RecordCard (props: RecordListItem) {
           {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
         </div>
       </div>}
-      <CodeDrawer ref={CodeDrawerRef} />
     </div>
   )
 }
