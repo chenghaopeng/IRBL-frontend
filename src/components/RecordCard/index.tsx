@@ -73,7 +73,11 @@ function RecordCard (props: RecordCardProps) {
         const truePath = tree ? (prefix + path) : path
         const filePath = '/' + truePath.split('/').slice(2).join('/')
         Api.repository.file(record.repoCommitId, filePath).then(res => {
-          props.hook && props.hook(`/*\n  ${truePath}\n*/\n\n${res.content}`)
+          if (res.success) {
+            props.hook && props.hook(`/*\n  ${truePath}\n*/\n\n${res.content}`)
+          } else {
+            __('出现了一些小问题')
+          }
         })
       } else {
         __('只允许查看已注册仓库的代码！')
