@@ -145,18 +145,20 @@ function RecordCard (props: RecordCardProps) {
         </>}
       </div>
       {show && record && <div className={styles.content} onClick={handleClick}>
-        <div className={styles.control}>
-          <FontAwesomeIcon icon={faBars} size="lg" className={$$([styles.mode, !tree && styles.checked])} onClick={handleToggleMode} />
-          <FontAwesomeIcon icon={faFolder} size="lg" className={$$([styles.mode, tree && styles.checked])} onClick={handleToggleMode} />
-          {tree && <>
-            <div className={styles.path}>
-              <div className={styles.prefix}>
-                { prefix }
+        { fileList.length && 
+          <div className={styles.control}>
+            <FontAwesomeIcon icon={faBars} size="lg" className={$$([styles.mode, !tree && styles.checked])} onClick={handleToggleMode} />
+            <FontAwesomeIcon icon={faFolder} size="lg" className={$$([styles.mode, tree && styles.checked])} onClick={handleToggleMode} />
+            {tree && <>
+              <div className={styles.path}>
+                <div className={styles.prefix}>
+                  { prefix }
+                </div>
               </div>
-            </div>
-            <FontAwesomeIcon icon={faArrowUp} size="lg" className={styles.mode} onClick={handleTreeUp} />
-          </>}
-        </div>
+              <FontAwesomeIcon icon={faArrowUp} size="lg" className={styles.mode} onClick={handleTreeUp} />
+            </>}
+          </div>
+        }
         {fileList.map((item, index) => (
             <div
               className={styles.item}
