@@ -1,3 +1,4 @@
+import loading from "../components/MyLoading"
 import store from "./store"
 
 export type Response<T = any> = Promise<{
@@ -26,11 +27,13 @@ function request (url: string, data: any = {}, multiPart: boolean = false) {
     headers.append('Content-Type', 'application/json')
     data = JSON.stringify(data)
   }
+  const hide = loading()
   return fetch(server + url, {
     method: 'POST',
     body: data,
     headers
   }).then(res => res.json() as Response, () => ({ success: false, content: {}, message: '网络错误，请重新登录或联系管理员！' }))
+  .finally(hide)
 }
 
 export default request
