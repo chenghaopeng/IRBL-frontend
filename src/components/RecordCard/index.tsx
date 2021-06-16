@@ -1,4 +1,4 @@
-import { faCheck, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faBars, faCheck, faFolder, faFolderOpen, faRedo, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState, MouseEvent, CSSProperties } from 'react'
 import Api from '../../utils/api'
@@ -38,6 +38,8 @@ function RecordCard (props: RecordCardProps) {
   const [show, setShow] = useState(false)
   const [record, setRecord] = useState<Record>()
   const [timer, setTimer] = useState<any>(0)
+  const [tree, setTree] = useState(false)
+  const [prefix, setPrefix] = useState('/')
   const getRecord = () => {
     Api.record.get({ recordId: props.recordId }).then(({ success, content, message }) => {
       if (success) {
@@ -60,17 +62,66 @@ function RecordCard (props: RecordCardProps) {
     }
   }
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
-    const { path } = (e.target as HTMLDivElement).dataset
+    const { path, folder } = (e.target as HTMLDivElement).dataset
     if (!path) {
       return
     }
-    if (record?.repoCommitId) {
-      const truePath = '/' + path.split('/').slice(2).join('/')
-      Api.repository.file(record.repoCommitId, truePath).then(res => {
-        props.hook && props.hook(`/*\n  ${path}\n*/\n\n${res.content}`)
-      })
+    if (folder === 'true') {
+      setPrefix(prefix + path + '/')
     } else {
-      __('只允许查看已注册仓库的代码！')
+      if (record?.repoCommitId) {
+        const truePath = tree ? (prefix + path) : path
+        const filePath = '/' + truePath.split('/').slice(2).join('/')
+        Api.repository.file(record.repoCommitId, filePath).then(res => {
+          props.hook && props.hook(`/*\n  ${truePath}\n*/\n\n${res.content}`)
+        })
+      } else {
+        __('只允许查看已注册仓库的代码！')
+      }
+    }
+  }
+  const handleToggleMode = () => {
+    setTree(!tree)
+  }
+  let fileList = [] as Array<{filePath: string, score: number, folder: boolean}>
+  if (record?.fileScoreList && record.fileScoreList.length) {
+    if (tree) {
+      const prefixEntries = prefix.split('/')
+      const folderList = [] as string[]
+      fileList = record.fileScoreList
+        .filter(file => file.filePath.startsWith(prefix))
+        .filter(file => {
+          const fileEntries = file.filePath.split('/')
+          if (prefixEntries.length !== fileEntries.length) {
+            folderList.push(fileEntries[prefixEntries.length - 1])
+            return false
+          }
+          return true
+        })
+        .map(file => {
+          const fileEntries = file.filePath.split('/')
+          return {
+            filePath: fileEntries[prefixEntries.length - 1],
+            score: file.score,
+            folder: false
+          }
+        })
+      fileList = (Array.from(new Set(folderList)).map(folder => ({
+        filePath: folder,
+        score: 0,
+        folder: true
+      }))).concat(fileList)
+    } else {
+      fileList = record.fileScoreList.map(file => ({ ...file, folder: false }))
+    }
+  }
+  const handleTreeUp = () => {
+    if (prefix !== '/') {
+      const entries = prefix.split('/')
+      entries.pop()
+      entries.pop()
+      entries.push('')
+      setPrefix(entries.join('/'))
     }
   }
   return (
@@ -90,18 +141,31 @@ function RecordCard (props: RecordCardProps) {
         </>}
       </div>
       {show && record && <div className={styles.content} onClick={handleClick}>
-        {record.fileScoreList && record.fileScoreList.length && 
-          record.fileScoreList.map((item, index) => (
+        <div className={styles.control}>
+          <FontAwesomeIcon icon={faBars} size="lg" className={$$([styles.mode, !tree && styles.checked])} onClick={handleToggleMode} />
+          <FontAwesomeIcon icon={faFolder} size="lg" className={$$([styles.mode, tree && styles.checked])} onClick={handleToggleMode} />
+          {tree && <>
+            <div className={styles.path}>
+              <div className={styles.prefix}>
+                { prefix }
+              </div>
+            </div>
+            <FontAwesomeIcon icon={faArrowUp} size="lg" className={styles.mode} onClick={handleTreeUp} />
+          </>}
+        </div>
+        {fileList.map((item, index) => (
             <div
               className={styles.item}
               key={item.filePath}
               data-path={item.filePath}
+              data-folder={item.folder}
               style={{
                 '--size': item.score * 100 + '%',
                 '--opacity': 0.2 + item.score * 0.8,
                 '--delay': index * 0.05 + 's'
               } as CSSProperties }
             >
+              {tree && item.folder && <FontAwesomeIcon icon={faFolderOpen} size="sm" color="#69BBFF" style={{transform: 'translateX(-4px)'}} />}
               {item.filePath}
             </div>
           ))

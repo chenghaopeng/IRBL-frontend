@@ -37,6 +37,31 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
+    user-select: none;
+    .control {
+      display: grid;
+      grid-template-columns: repeat(2, 16px) auto 16px;
+      gap: 8px;
+      .mode {
+        color: #69BBFF44;
+        cursor: pointer;
+        &:hover {
+          color: #69BBFF88;
+        }
+        &:active, &.checked {
+          color: #69BBFF;
+        }
+      }
+      .path {
+        position: relative;
+        overflow: hidden;
+        .prefix {
+          position: absolute;
+          right: 0;
+          white-space: nowrap;
+        }
+      }
+    }
     .item {
       padding: 4px 8px;
       position: relative;
