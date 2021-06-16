@@ -1,8 +1,8 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
-import { faRedo } from '../../../node_modules.nosync/@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '../../../node_modules.nosync/@fortawesome/react-fontawesome'
+import { faRedo } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './index.module.scss'
 import './index.scss'
 
