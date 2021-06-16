@@ -145,7 +145,7 @@ function RecordCard (props: RecordCardProps) {
         </>}
       </div>
       {show && record && <div className={styles.content} onClick={handleClick}>
-        { fileList.length && 
+        { fileList.length > 0 && 
           <div className={styles.control}>
             <FontAwesomeIcon icon={faBars} size="lg" className={$$([styles.mode, !tree && styles.checked])} onClick={handleToggleMode} />
             <FontAwesomeIcon icon={faFolder} size="lg" className={$$([styles.mode, tree && styles.checked])} onClick={handleToggleMode} />
