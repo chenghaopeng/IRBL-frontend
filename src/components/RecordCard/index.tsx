@@ -63,25 +63,21 @@ function RecordCard (props: RecordCardProps) {
   }
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     const { path, folder } = (e.target as HTMLDivElement).dataset
-    if (!path) {
+    if (!path || !record) {
       return
     }
     if (folder === 'true') {
       setPrefix(prefix + path + '/')
     } else {
-      if (record?.repoCommitId) {
-        const truePath = tree ? (prefix + path) : path
-        const filePath = '/' + truePath.split('/').slice(2).join('/')
-        Api.repository.file(record.repoCommitId, filePath).then(res => {
-          if (res.success) {
-            props.hook && props.hook(`/*\n  ${truePath}\n*/\n\n${res.content}`)
-          } else {
-            __('出现了一些小问题')
-          }
-        })
-      } else {
-        __('只允许查看已注册仓库的代码！')
-      }
+      const [func, id] = record.repoCommitId ? [Api.repository.file, record.repoCommitId] : [Api.record.file, record.id]
+      const truePath = tree ? (prefix + path) : path
+      func(id, truePath).then(res => {
+        if (res.success) {
+          props.hook && props.hook(`/*\n  ${truePath}\n*/\n\n${res.content}`)
+        } else {
+          __('出现了一些小问题，' + res.message)
+        }
+      })
     }
   }
   const handleToggleMode = () => {

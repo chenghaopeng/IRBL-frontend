@@ -18,7 +18,8 @@ const Api = {
   },
   record: {
     list: () => request('/record/getUserAllRecord') as Response<Array<RecordListItem>>,
-    get: (data: { recordId: string }) => request('/record/queryRecord', data) as Response<Record>
+    get: (data: { recordId: string }) => request('/record/queryRecord', data) as Response<Record>,
+    file: (id: string, path: string) => request(`/record/${id}/file`, { path }) as Response<string>
   },
   repository: {
     list: () => request('/repository/list') as Response<Array<Reposity>>,
