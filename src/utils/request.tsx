@@ -7,7 +7,7 @@ export type Response<T = any> = Promise<{
   message: string;
 }>
 
-const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/mock/381746' : 'http://116.85.66.200:8080'
+export const server = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:4523/mock/381746' : 'http://116.85.66.200:8080'
 
 function request (url: string, data: any = {}, multiPart: boolean = false) {
   const headers = new Headers()

@@ -5,7 +5,6 @@ import { Reposity } from '../../utils/entity'
 import MyModal, { MyModalRef } from '../MyModal'
 import MyInput from '../MyInput'
 import __ from '../MyMessage'
-import { openWorkspace } from '../../utils/workspace'
 
 export type ReposityListRef = {
   update: () => void;
@@ -65,12 +64,9 @@ function ReposityList (props: {}, ref: React.Ref<ReposityListRef>) {
       getReposities()
     })
   }
-  const onOpenWorkspace = (id: number) => {
-    openWorkspace((reposities.find(v => v.id === id) as Reposity).gitUrl)
-  }
   return (
     <>
-      {reposities.map(reposity => <ReposityCard key={reposity.id} {...reposity} onEdit={show(editModal)} onDelete={show(deleteModal)} onOpenWorkspace={onOpenWorkspace} />)}
+      {reposities.map(reposity => <ReposityCard key={reposity.id} {...reposity} onEdit={show(editModal)} onDelete={show(deleteModal)} />)}
       <MyModal ref={editModal} onOk={handleEdit}>
         <div>修改描述：</div>
         <MyInput value={description} onChange={setDescription} />

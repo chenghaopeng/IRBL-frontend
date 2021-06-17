@@ -1,17 +1,8 @@
+import { server } from './request'
 import openInNewTab from './tab'
 
-export const openWorkspacePath = (path: string) => {
-  const entries = path.split('/')
-  if (entries.length === 1) {
-    path = '/' + path
-  } else if (entries.length > 2) {
-    path = '/' + entries[1]
-  }
-  openInNewTab(`http://116.85.66.200:9001/?folder=/root/project${path}`)
-}
-
-export const openWorkspace = (gitUrl: string) => {
-  openWorkspacePath(getGitReposityName(gitUrl))
+export const openWorkspace = (type: string, id: string | number) => {
+  openInNewTab(`${server}/workspace?${type}=${id}`)
 }
 
 export const getGitReposityName = (gitUrl: string) => {

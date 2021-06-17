@@ -174,7 +174,7 @@ function RecordCard (props: RecordCardProps) {
         }
         <div className={styles.origin}>
           <div>{record.gitUrl ? `代码来自 ${getGitReposityName(record.gitUrl)} 的 ${record?.repoCommitId.substring(0, 8)} 提交` : '代码来自上传的压缩包'}</div>
-          {record.gitUrl && <MyButton title="工作区" onClick={() => openWorkspace(record.gitUrl)} />}
+          <MyButton title="工作区" onClick={() => openWorkspace('recordId', record.id)} />
         </div>
       </div>}
     </div>
