@@ -1,8 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { CSSTransition } from 'react-transition-group'
-import { faRedo } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from './index.module.scss'
 import './index.scss'
 
@@ -20,7 +18,9 @@ const MyLoading = forwardRef((_: {}, ref: React.Ref<MyLoadingRef>) => {
   return (
     <CSSTransition in={show} timeout={500} classNames="MyLoading" unmountOnExit>
       <div className={styles.whole}>
-        <FontAwesomeIcon size="3x" icon={faRedo} spin color="#69BBFF" />
+        <div className={styles.spin}>
+          <div className={styles.triangle}></div>
+        </div>
       </div>
     </CSSTransition>
   )
